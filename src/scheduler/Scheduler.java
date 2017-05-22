@@ -1,6 +1,6 @@
 package scheduler;
 
-import events.GraphicGenerator;
+import graphic.GraphicGenerator;
 import processes.Process;
 import processes.Resource;
 import schedulingalgorithms.Run;

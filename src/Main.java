@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        Resource[] resources1 = {new Resource(ResourceType.CPU, 5), new Resource(ResourceType.IO, 10), new Resource(ResourceType.CPU, 3)};
+        Resource[] resources1 = {new Resource(ResourceType.CPU, 15), new Resource(ResourceType.IO, 15), new Resource(ResourceType.CPU, 15)};
         Resource[] resources2 = {new Resource(ResourceType.CPU, 5), new Resource(ResourceType.IO, 10), new Resource(ResourceType.CPU, 3)};
         Process [] processes = new Process[]{
             new Process(1).arrivalTime(10).priority(10).resource(new ArrayList<>(Arrays.asList(resources1))),
