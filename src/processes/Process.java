@@ -20,12 +20,19 @@ public class Process {
         this.state = State.PENDING;
     }
 
-    public void setPriority(int priority) {
+    public Process priority(int priority) {
         this.priority = priority;
+        return this;
     }
 
-    public void setArrivalTime(int arrivalTime) {
+    public Process arrivalTime(int arrivalTime) {
         this.arrivalTime = arrivalTime;
+        return this;
+    }
+
+    public Process resource(List<Resource> resources){
+        this.resources = resources;
+        return this;
     }
 
     public int getId() {

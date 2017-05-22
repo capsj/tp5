@@ -1,6 +1,6 @@
 package scheduler;
 
-import events.Event;
+import events.GraphicGenerator;
 import processes.Process;
 import processes.Resource;
 import schedulingalgorithms.Run;
@@ -8,7 +8,6 @@ import schedulingalgorithms.SchedulingAlgorithm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,32 +17,26 @@ import java.util.stream.Collectors;
  */
 public class Scheduler {
 
-    List<Process> ready;
-    List<Process> pending;
-    List<Process> blocked;
-    Run running;
-    SchedulingAlgorithm schedulingAlgorithm;
-    Process[] processes;
-    List<Run> history;
+    private List<Process> ready;
+    private List<Process> pending;
+    private List<Process> blocked;
+    private Run running;
+    private SchedulingAlgorithm schedulingAlgorithm;
+    private List<Run> history;
     private int clock;
 
-    public void start(){
+    public void start(SchedulingAlgorithm algorithm, Process[] processes){
         history = new ArrayList<>();
-//        schedulingAlgorithm = new Priority();
-        Resource[] resources = {new Resource(ResourceType.CPU, 5), new Resource(ResourceType.IO, 10), new Resource(ResourceType.CPU, 3)};
-        processes = new Process[]{
-                new Process(1).arrivalTime(10).priority(10).resource(new ArrayList<>(Arrays.asList(resources))),
-                new Process(2).arrivalTime(10).priority(4).resource(new ArrayList<>(Arrays.asList(resources)))
-        };
+        schedulingAlgorithm = algorithm;
+
         ready = new ArrayList<>();
-        pending = new ArrayList<>();
         blocked = new ArrayList<>();
         pending = new ArrayList<>(Arrays.asList(processes));
         clock = 1;
-        schedule();
+        schedule(processes);
     }
 
-    public List<Event> schedule(){
+    public void schedule(Process[] processes){
         while(!(pending.isEmpty() && ready.isEmpty() && blocked.isEmpty()) || running != null){
             System.out.println(clock++);
             decreaseArrivalTimes();
@@ -62,7 +55,7 @@ public class Scheduler {
             }
         }
         System.out.println("Finished");
-        ScheduleGraphic.draw(Arrays.asList(processes), history);
+        GraphicGenerator.draw(Arrays.asList(processes), history);
     }
 
     private void addToReady(){

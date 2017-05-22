@@ -7,14 +7,26 @@ import processes.Process;
  */
 public class Run {
     private Process p;
-    int time;
+    private int runTime;
 
-    public Run(Process p, int time) {
+    public Run(Process p, int runTime) {
         this.p = p;
-        this.time = time;
+        this.runTime = runTime;
     }
 
-    public int getTime() {
-        return time;
+    public Process getP() {
+        return p;
+    }
+
+    public void setP(Process p) {
+        this.p = p;
+    }
+
+    public int getRunTime() {
+        return runTime;
+    }
+
+    public void setRunTime(int runTime) {
+        this.runTime = runTime;
     }
 }
