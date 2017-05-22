@@ -1,5 +1,6 @@
 package processes;
 
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -8,17 +9,15 @@ import java.util.Queue;
  */
 public class Process {
 
-    private String name;
+    private int id;
     private int priority;
     private int arrivalTime;
-    private Queue<Resource> resources;
+    private List<Resource> resources;
     private State state;
 
-    public Process(String name, int priority, int arrivalTime, Queue<Resource> resources) {
-        this.name = name;
-        this.priority = priority;
-        this.arrivalTime = arrivalTime;
-        this.resources = resources;
+    public Process(int id) {
+        this.id = id;
+        this.state = State.PENDING;
     }
 
     public void setPriority(int priority) {
@@ -29,8 +28,8 @@ public class Process {
         this.arrivalTime = arrivalTime;
     }
 
-    public String getName() {
-        return name;
+    public int getId() {
+        return id;
     }
 
     public int getPriority() {
@@ -41,19 +40,15 @@ public class Process {
         return arrivalTime;
     }
 
-    public Queue<Resource> getResources() {
+    public List<Resource> getResources(){
         return resources;
     }
-
-    public boolean isLocked(){
-        return resources.peek().isIO();
+    public void removeResource(){
+        resources.remove(0);
     }
 
-    public int consumeResource(int time){
-        if (resources.peek().getRemainingTime()-time <= 0){
-            return resources.poll().getRemainingTime();
-        }
-        resources.peek().consume(time);
-        return resources.peek().getRemainingTime();
-    }
+//    public boolean isLocked(){
+//        return resources;
+//    }
+
 }
